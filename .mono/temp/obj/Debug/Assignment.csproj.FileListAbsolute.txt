@@ -1,0 +1,9 @@
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.csproj.AssemblyReference.cache
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.AssemblyInfoInputs.cache
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.AssemblyInfo.cs
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.csproj.CoreCompileInputs.cache
+C:\Users\andre\Documents\Assignment\.mono\temp\bin\Debug\Assignment.dll
+C:\Users\andre\Documents\Assignment\.mono\temp\bin\Debug\Assignment.pdb
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.dll
+C:\Users\andre\Documents\Assignment\.mono\temp\obj\Debug\Assignment.pdb
