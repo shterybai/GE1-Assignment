@@ -12,6 +12,7 @@ public class Player : KinematicBody
     public int JumpForce = 10;
     
     // Camera Settings
+    public bool PlayerControl = true;
     public float MinLookAngle = -90;
     public float MaxLookAngle = 90;
     public float MouseSensitivity = 0.075f;
@@ -25,7 +26,6 @@ public class Player : KinematicBody
     }
 
     public override void _PhysicsProcess(float delta) {
-
         // Pause
         // if (Input.IsActionPressed("ui_pause")) {
         //     Input.SetMouseMode(Input.MouseModeEnum.Visible);
@@ -33,45 +33,50 @@ public class Player : KinematicBody
 
         // We create a local variable to store the input direction.
         var direction = Vector3.Zero;
+        if(PlayerControl == true) {
+            // We check for each move input and update the direction accordingly
+            if (Input.IsActionPressed("ui_right")) {
+                direction.x += Speed;
+            }
+            if (Input.IsActionPressed("ui_left")) {
+                direction.x -= Speed;
+            }
+            if (Input.IsActionPressed("ui_backward")) {
+                direction.z += Speed;
+            }
+            if (Input.IsActionPressed("ui_forward")) {
+                direction.z -= Speed;
+            }
+            if (direction != Vector3.Zero) {
+                direction = direction.Normalized();
+            }
 
-        // We check for each move input and update the direction accordingly
-        if (Input.IsActionPressed("ui_right")) {
-            direction.x += Speed;
+            // Apply jetpack
+            if (Input.IsActionPressed("ui_jetpack")) {
+                Velocity.y += Gravity * delta * 3;
+            }
+
+            // Apply gravity
+            Velocity.y -= Gravity * delta;
+
+            // Get possible directions
+            var MovementRight = GlobalTransform.basis.x;
+            var MovementForward = GlobalTransform.basis.z;
+
+            // Set relative direction
+            var RelativeDirection = (MovementForward * direction.z + MovementRight * direction.x);
+
+            // Set velocity
+            Velocity.x = RelativeDirection.x * Speed;
+            Velocity.z = RelativeDirection.z * Speed;
+
+            // Apply movement
+            Velocity = MoveAndSlide(Velocity, Vector3.Up);
         }
-        if (Input.IsActionPressed("ui_left")) {
-            direction.x -= Speed;
-        }
-        if (Input.IsActionPressed("ui_backward")) {
-            direction.z += Speed;
-        }
-        if (Input.IsActionPressed("ui_forward")) {
-            direction.z -= Speed;
-        }
-        if (direction != Vector3.Zero) {
-            direction = direction.Normalized();
-        }
 
-        // Apply jetpack
-        if (Input.IsActionPressed("ui_jetpack")) {
-            Velocity.y += Gravity * delta * 3;
-        }
-
-        // Apply gravity
-        Velocity.y -= Gravity * delta;
-
-        // Get possible directions
-        var MovementRight = GlobalTransform.basis.x;
-        var MovementForward = GlobalTransform.basis.z;
-
-        // Set relative direction
-        var RelativeDirection = (MovementForward * direction.z + MovementRight * direction.x);
-
-        // Set velocity
-        Velocity.x = RelativeDirection.x * Speed;
-        Velocity.z = RelativeDirection.z * Speed;
-
-        // Apply movement
-        Velocity = MoveAndSlide(Velocity, Vector3.Up);
+        if(Input.IsActionJustPressed("toggle_spaceship_view")) {
+			PlayerControl = !PlayerControl;
+		}
     }
 
     public override void _Input(InputEvent inputEvent) {
