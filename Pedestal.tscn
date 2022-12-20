@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+
+[sub_resource type="CylinderMesh" id=2]
+material = SubResource( 1 )
+top_radius = 3.75
+bottom_radius = 3.0
+height = 0.75
+
+[node name="Pedestal" type="Spatial"]
+
+[node name="Stand" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0 )
+mesh = SubResource( 2 )
