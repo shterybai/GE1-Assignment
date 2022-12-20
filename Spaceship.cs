@@ -9,7 +9,7 @@ public class Spaceship : Spatial
 	float Frequency = 1.1f;
 	float TimeScale = 0.1f;
 	float Theta;
-	bool PlayerControl = false;
+	bool SpaceshipControl = false;
 
 	float RotY = 5;
 	public override void _Ready()
@@ -20,7 +20,7 @@ public class Spaceship : Spatial
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(float delta)
 	{
-		if(PlayerControl == false) {
+		if(SpaceshipControl == false) {
 			Theta = Time.GetTicksMsec() * (Frequency * TimeScale * delta);
 			float Angle = Amplitude * Mathf.Sin(Theta);
 			CurrentPosition = Translation;
@@ -29,6 +29,18 @@ public class Spaceship : Spatial
 
 			RotationDegrees += new Vector3(Angle*0.2f, 1*delta*RotY, Angle*0.2f);
 			Translation = CurrentPosition;
+		}
+
+		if(SpaceshipControl == true) {
+			RotationDegrees = new Vector3(0, 1*delta*RotY, 0);
+			CurrentPosition.y = 0;
+			var SpaceshipCam = (Camera)FindNode("SpaceshipCam");
+			SpaceshipCam.Current = true;
+		}
+
+		if(Input.IsActionJustPressed("toggle_spaceship_view")) {
+			SpaceshipControl = !SpaceshipControl;
+			GD.Print("SpaceshipControl = " + SpaceshipControl);
 		}
 	}
 }
