@@ -7,7 +7,7 @@ public class Player : KinematicBody
     [Export]
     public int Speed = 5;
     [Export]
-    public int FallAcceleration = 5;
+    public int Gravity = 5;
     [Export]
     public int JumpForce = 10;
     
@@ -17,7 +17,7 @@ public class Player : KinematicBody
     public float MouseSensitivity = 5;
 
     // Vector Settings
-    private Vector3 _velocity = Vector3.Zero;
+    private Vector3 Velocity = Vector3.Zero;
     private Vector2 MouseDelta = Vector2.Zero;
 
     public override void _PhysicsProcess(float delta)
@@ -40,9 +40,28 @@ public class Player : KinematicBody
         }
         if (direction != Vector3.Zero) {
             direction = direction.Normalized();
-            // GetNode<Spatial>("Pivot").LookAt(Translation + direction, Vector3.Up);
         }
 
-        MoveAndSlide(direction);
+        // Apply jetpack
+        if (Input.IsActionPressed("ui_jetpack")) {
+            Velocity.y += Gravity * delta * 3;
+        }
+
+        // Apply gravity
+        Velocity.y -= Gravity * delta;
+
+        // Get possible directions
+        var MovementRight = GlobalTransform.basis.x;
+        var MovementForward = GlobalTransform.basis.z;
+
+        // Set relative direction
+        var RelativeDirection = (MovementForward * direction.z + MovementRight * direction.x);
+
+        // Set velocity
+        Velocity.x = RelativeDirection.x * Speed;
+        Velocity.z = RelativeDirection.z * Speed;
+
+        // Apply movement
+        Velocity = MoveAndSlide(Velocity, Vector3.Up);
     }
 }
