@@ -34,8 +34,6 @@ public class Spaceship : Spatial
 		if(SpaceshipControl == true) {
 			RotationDegrees = new Vector3(0, 1*delta*RotY, 0);
 			CurrentPosition.y = 0;
-			var SpaceshipCam = (Camera)FindNode("SpaceshipCam");
-			SpaceshipCam.Current = true;
 		}
 
 		if(Input.IsActionJustPressed("toggle_spaceship_view")) {

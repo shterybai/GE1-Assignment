@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Spaceship.cs" type="Script" id=1]
 
@@ -52,7 +52,10 @@ top_radius = 0.04
 bottom_radius = 0.04
 height = 0.15
 
-[node name="Spaceship" type="Spatial"]
+[sub_resource type="BoxShape" id=16]
+extents = Vector3( 3.8, 0.9, 5.4 )
+
+[node name="Spaceship" type="KinematicBody"]
 script = ExtResource( 1 )
 
 [node name="Spatial" type="Spatial" parent="."]
@@ -112,3 +115,6 @@ mesh = SubResource( 15 )
 
 [node name="SpaceshipCam" type="Camera" parent="Spatial"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.78179, -0.173281, -1.49012e-08 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 16 )
