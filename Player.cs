@@ -14,14 +14,23 @@ public class Player : KinematicBody
     // Camera Settings
     public float MinLookAngle = -90;
     public float MaxLookAngle = 90;
-    public float MouseSensitivity = 5;
+    public float MouseSensitivity = 0.075f;
 
     // Vector Settings
     private Vector3 Velocity = Vector3.Zero;
     private Vector2 MouseDelta = Vector2.Zero;
 
-    public override void _PhysicsProcess(float delta)
-    {
+    public override void _Ready() {
+        Input.SetMouseMode(Input.MouseModeEnum.Captured);
+    }
+
+    public override void _PhysicsProcess(float delta) {
+
+        // Pause
+        // if (Input.IsActionPressed("ui_pause")) {
+        //     Input.SetMouseMode(Input.MouseModeEnum.Visible);
+        // }
+
         // We create a local variable to store the input direction.
         var direction = Vector3.Zero;
 
@@ -63,5 +72,31 @@ public class Player : KinematicBody
 
         // Apply movement
         Velocity = MoveAndSlide(Velocity, Vector3.Up);
+    }
+
+    public override void _Input(InputEvent inputEvent) {
+        if(inputEvent is InputEventMouseMotion) {
+            var MouseDelta = inputEvent as InputEventMouseMotion;
+            // Input.MouseMode(Input.MouseMode.Captured);
+
+            Vector3 currentPitch = RotationDegrees;
+            currentPitch.y -= MouseDelta.Relative.x * MouseSensitivity;
+            // player.SetRotationDegrees(currentPitch);
+            RotationDegrees = currentPitch;
+
+            Vector3 currentTilt = RotationDegrees;//grab current rotation of camera.
+            
+            //change the current rotation by the relative mouse coor change on the y Axis
+            currentTilt.x -= MouseDelta.Relative.y * MouseSensitivity;
+
+            //clamp the rotation to -90 and 90 so that you cant become possessed.
+            currentTilt.x = Mathf.Clamp(currentTilt.x, -90, 90);
+
+            //sets the rotation of the camera to the new value                                                                                            
+            // GetNode<Camera>("Camera").SetRotationDegrees(currentTilt);         
+            
+            //sets the rotation of the camera to the new value
+            RotationDegrees = currentTilt;
+        }
     }
 }
