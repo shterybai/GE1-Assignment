@@ -5,7 +5,7 @@ public class Player : KinematicBody
 {
     // Physics Settings
     [Export]
-    public int Speed = 5;
+    public int Speed = 3;
     [Export]
     public int Gravity = 5;
     

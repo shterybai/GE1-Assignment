@@ -67,6 +67,9 @@ public class Spaceship : KinematicBody
 			if (Input.IsActionPressed("ui_forward")) {
 				direction.z += Speed;
 			}
+			if (Input.IsActionPressed("ui_thrust")) {
+				direction.z += Speed;
+			}
 			if (Input.IsActionPressed("ui_backward")) {
 				direction.z -= Speed;
 			}
