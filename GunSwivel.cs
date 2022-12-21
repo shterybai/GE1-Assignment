@@ -1,13 +1,12 @@
 using Godot;
 using System;
 
-public class PlayerCam : Camera
+public class GunSwivel : MeshInstance
 {
-
     KinematicBody player;
     
     // Camera Settings
-    public bool PlayerControl = true;
+    public bool GunControl = false;
     public float MouseSensitivity = 0.075f;
 
     // Called when the node enters the scene tree for the first time.
@@ -17,7 +16,7 @@ public class PlayerCam : Camera
     }
     
     public override void _Input(InputEvent inputEvent) {
-        if(inputEvent is InputEventMouseMotion && PlayerControl == true) {
+        if(inputEvent is InputEventMouseMotion && GunControl == true) {
             var MouseDelta = inputEvent as InputEventMouseMotion;
             // Input.MouseMode(Input.MouseMode.Captured);
 
@@ -41,8 +40,7 @@ public class PlayerCam : Camera
             RotationDegrees = currentTilt;
         }
         if(Input.IsActionJustPressed("toggle_spaceship_view")) {
-			PlayerControl = !PlayerControl;
-			GD.Print("SpaceshipControl = " + PlayerControl);
+			GunControl = !GunControl;
 		}
     }
 }

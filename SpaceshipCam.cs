@@ -1,13 +1,12 @@
 using Godot;
 using System;
 
-public class PlayerCam : Camera
+public class SpaceshipCam : Camera
 {
-
     KinematicBody player;
     
     // Camera Settings
-    public bool PlayerControl = true;
+    public bool SpaceshipControl = false;
     public float MouseSensitivity = 0.075f;
 
     // Called when the node enters the scene tree for the first time.
@@ -17,7 +16,7 @@ public class PlayerCam : Camera
     }
     
     public override void _Input(InputEvent inputEvent) {
-        if(inputEvent is InputEventMouseMotion && PlayerControl == true) {
+        if(inputEvent is InputEventMouseMotion && SpaceshipControl == true) {
             var MouseDelta = inputEvent as InputEventMouseMotion;
             // Input.MouseMode(Input.MouseMode.Captured);
 
@@ -41,8 +40,7 @@ public class PlayerCam : Camera
             RotationDegrees = currentTilt;
         }
         if(Input.IsActionJustPressed("toggle_spaceship_view")) {
-			PlayerControl = !PlayerControl;
-			GD.Print("SpaceshipControl = " + PlayerControl);
+			SpaceshipControl = !SpaceshipControl;
 		}
     }
 }
