@@ -16,9 +16,7 @@ public class Spaceship : KinematicBody
     [Export]
     public int Speed = 5;
     [Export]
-    public int Gravity = 5;
-    [Export]
-    public int JumpForce = 10;
+    public int Gravity = 1;
     
     // Camera Settings
     public float MinLookAngle = -90;
@@ -28,9 +26,12 @@ public class Spaceship : KinematicBody
     // Vector Settings
     private Vector3 Velocity = Vector3.Zero;
     private Vector2 MouseDelta = Vector2.Zero;
+
 	public override void _Ready()
 	{
-
+		if(SpaceshipControl == true) {
+			RotationDegrees = new Vector3(0, 0, 0);
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,17 +40,19 @@ public class Spaceship : KinematicBody
 		if(SpaceshipControl == false) {
 			Theta = Time.GetTicksMsec() * (Frequency * TimeScale * delta);
 			float Angle = Amplitude * Mathf.Sin(Theta);
-			CurrentPosition = Translation;
+			// CurrentPosition = Translation;
 			CurrentPosition.y = Angle + 3.5f;
 			CurrentPosition.y = Mathf.Lerp(Translation.y, CurrentPosition.y, TimeScale);
 
 			RotationDegrees += new Vector3(Angle*0.2f, 1*delta*RotY, Angle*0.2f);
 			Translation = CurrentPosition;
+
+			Velocity.y = 0;
 		}
 
 		if(SpaceshipControl == true) {
-			RotationDegrees = new Vector3(0, 1*delta*RotY, 0);
-			CurrentPosition.y = 0;
+			// RotationDegrees = new Vector3(0, 1*delta*RotY, 0);
+			// CurrentPosition.y = 0;
 
 			// We create a local variable to store the input direction.
 			var direction = Vector3.Zero;
@@ -71,13 +74,15 @@ public class Spaceship : KinematicBody
 				direction = direction.Normalized();
 			}
 
-			// Apply jetpack
+			// Apply VTOL
 			if (Input.IsActionPressed("ui_jetpack")) {
-				Velocity.y += Gravity * delta * 3;
+				Velocity.y += Gravity * delta * 6;
 			}
 
 			// Apply gravity
-			Velocity.y -= Gravity * delta;
+			if(CurrentPosition.y >= 3) {
+				Velocity.y -= Gravity * delta;
+			}
 
 			// Get possible directions
 			var MovementRight = GlobalTransform.basis.x;
@@ -99,4 +104,30 @@ public class Spaceship : KinematicBody
 			GD.Print("SpaceshipControl = " + SpaceshipControl);
 		}
 	}
+
+	public override void _Input(InputEvent inputEvent) {
+        if(inputEvent is InputEventMouseMotion && SpaceshipControl == true) {
+            var MouseDelta = inputEvent as InputEventMouseMotion;
+            // Input.MouseMode(Input.MouseMode.Captured);
+
+            Vector3 currentPitch = RotationDegrees;
+            currentPitch.y -= MouseDelta.Relative.x * MouseSensitivity;
+            // player.SetRotationDegrees(currentPitch);
+            RotationDegrees = currentPitch;
+
+            Vector3 currentTilt = RotationDegrees;//grab current rotation of camera.
+            
+            //change the current rotation by the relative mouse coor change on the y Axis
+            currentTilt.x += MouseDelta.Relative.y * MouseSensitivity;
+
+            //clamp the rotation to -90 and 90 so that you cant become possessed.
+            currentTilt.x = Mathf.Clamp(currentTilt.x, -90, 90);
+
+            //sets the rotation of the camera to the new value                                                                                            
+            // GetNode<Camera>("Camera").SetRotationDegrees(currentTilt);         
+            
+            //sets the rotation of the camera to the new value
+            RotationDegrees = currentTilt;
+        }
+    }
 }

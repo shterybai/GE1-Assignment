@@ -8,8 +8,6 @@ public class Player : KinematicBody
     public int Speed = 5;
     [Export]
     public int Gravity = 5;
-    [Export]
-    public int JumpForce = 10;
     
     // Camera Settings
     public bool PlayerControl = true;
@@ -22,17 +20,16 @@ public class Player : KinematicBody
     private Vector2 MouseDelta = Vector2.Zero;
 
     public override void _Ready() {
-        Input.SetMouseMode(Input.MouseModeEnum.Captured);
+        Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     public override void _PhysicsProcess(float delta) {
-        // Pause
-        // if (Input.IsActionPressed("ui_pause")) {
-        //     Input.SetMouseMode(Input.MouseModeEnum.Visible);
-        // }
-
         // We create a local variable to store the input direction.
         var direction = Vector3.Zero;
+
+        // Apply gravity
+        Velocity.y -= Gravity * delta;
+
         if(PlayerControl == true) {
             // We check for each move input and update the direction accordingly
             if (Input.IsActionPressed("ui_right")) {
@@ -56,9 +53,6 @@ public class Player : KinematicBody
                 Velocity.y += Gravity * delta * 3;
             }
 
-            // Apply gravity
-            Velocity.y -= Gravity * delta;
-
             // Get possible directions
             var MovementRight = GlobalTransform.basis.x;
             var MovementForward = GlobalTransform.basis.z;
@@ -69,39 +63,39 @@ public class Player : KinematicBody
             // Set velocity
             Velocity.x = RelativeDirection.x * Speed;
             Velocity.z = RelativeDirection.z * Speed;
-
-            // Apply movement
-            Velocity = MoveAndSlide(Velocity, Vector3.Up);
         }
+
+        // Apply movement
+        Velocity = MoveAndSlide(Velocity, Vector3.Up);
 
         if(Input.IsActionJustPressed("toggle_spaceship_view")) {
 			PlayerControl = !PlayerControl;
 		}
     }
 
-    public override void _Input(InputEvent inputEvent) {
-        if(inputEvent is InputEventMouseMotion) {
-            var MouseDelta = inputEvent as InputEventMouseMotion;
-            // Input.MouseMode(Input.MouseMode.Captured);
+    // public override void _Input(InputEvent inputEvent) {
+    //     if(inputEvent is InputEventMouseMotion && PlayerControl == true) {
+    //         var MouseDelta = inputEvent as InputEventMouseMotion;
+    //         // Input.MouseMode(Input.MouseMode.Captured);
 
-            Vector3 currentPitch = RotationDegrees;
-            currentPitch.y -= MouseDelta.Relative.x * MouseSensitivity;
-            // player.SetRotationDegrees(currentPitch);
-            RotationDegrees = currentPitch;
+    //         Vector3 currentPitch = RotationDegrees;
+    //         currentPitch.y -= MouseDelta.Relative.x * MouseSensitivity;
+    //         // player.SetRotationDegrees(currentPitch);
+    //         RotationDegrees = currentPitch;
 
-            Vector3 currentTilt = RotationDegrees;//grab current rotation of camera.
+    //         Vector3 currentTilt = RotationDegrees;//grab current rotation of camera.
             
-            //change the current rotation by the relative mouse coor change on the y Axis
-            currentTilt.x -= MouseDelta.Relative.y * MouseSensitivity;
+    //         //change the current rotation by the relative mouse coor change on the y Axis
+    //         currentTilt.x += MouseDelta.Relative.y * MouseSensitivity;
 
-            //clamp the rotation to -90 and 90 so that you cant become possessed.
-            currentTilt.x = Mathf.Clamp(currentTilt.x, -90, 90);
+    //         //clamp the rotation to -90 and 90 so that you cant become possessed.
+    //         currentTilt.x = Mathf.Clamp(currentTilt.x, -90, 90);
 
-            //sets the rotation of the camera to the new value                                                                                            
-            // GetNode<Camera>("Camera").SetRotationDegrees(currentTilt);         
+    //         //sets the rotation of the camera to the new value                                                                                            
+    //         // GetNode<Camera>("Camera").SetRotationDegrees(currentTilt);         
             
-            //sets the rotation of the camera to the new value
-            RotationDegrees = currentTilt;
-        }
-    }
+    //         //sets the rotation of the camera to the new value
+    //         RotationDegrees = currentTilt;
+    //     }
+    // }
 }

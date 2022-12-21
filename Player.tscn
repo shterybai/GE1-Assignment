@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.cs" type="Script" id=1]
+[ext_resource path="res://PlayerCam.cs" type="Script" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 
@@ -18,10 +19,11 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.75, 0 )
 mesh = SubResource( 2 )
 
-[node name="PlayerCam" type="Camera" parent="Body"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.25, -0.3 )
-current = true
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0 )
 shape = SubResource( 3 )
+
+[node name="PlayerCam" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.25 )
+current = true
+script = ExtResource( 2 )
