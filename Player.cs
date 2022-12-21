@@ -50,7 +50,7 @@ public class Player : KinematicBody
 
             // Apply jetpack
             if (Input.IsActionPressed("ui_jetpack")) {
-                Velocity.y += Gravity * delta * 3;
+                Velocity.y += Gravity * delta * 2;
             }
 
             // Get possible directions

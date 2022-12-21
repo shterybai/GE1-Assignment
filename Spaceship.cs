@@ -14,7 +14,7 @@ public class Spaceship : KinematicBody
 
 	// Physics Settings
     [Export]
-    public int Speed = 6;
+    public int Speed = 10;
     [Export]
     public int Gravity = 1;
     
@@ -68,7 +68,7 @@ public class Spaceship : KinematicBody
 				direction.z += Speed;
 			}
 			if (Input.IsActionPressed("ui_thrust")) {
-				direction.z += Speed;
+				Velocity.y -= Speed*delta*0.5f;
 			}
 			if (Input.IsActionPressed("ui_backward")) {
 				direction.z -= Speed;
@@ -83,9 +83,9 @@ public class Spaceship : KinematicBody
 			}
 
 			// Apply gravity
-			if(CurrentPosition.y >= 3) {
-				Velocity.y -= Gravity * delta;
-			}
+			// if(CurrentPosition.y >= 3) {
+			// 	Velocity.y -= Gravity * delta;
+			// }
 
 			// Get possible directions
 			var MovementRight = GlobalTransform.basis.x;

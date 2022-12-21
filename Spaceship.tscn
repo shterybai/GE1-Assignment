@@ -9,6 +9,7 @@ albedo_color = Color( 0.2, 0.2, 0.2, 1 )
 metallic = 1.0
 
 [sub_resource type="CylinderMesh" id=5]
+height = 5.0
 
 [sub_resource type="SpatialMaterial" id=6]
 albedo_color = Color( 0.2, 0.2, 0.2, 1 )
@@ -111,7 +112,7 @@ extents = Vector3( 3.8, 0.9, 5.4 )
 script = ExtResource( 1 )
 
 [node name="Spatial" type="Spatial" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.127402, -0.0102019, -0.129332 )
+transform = Transform( 0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -123,13 +124,13 @@ skeleton = NodePath("../..")
 material/0 = SubResource( 4 )
 
 [node name="RightThruster" type="MeshInstance" parent="Spatial"]
-transform = Transform( -2.18557e-08, 1, -2.18557e-08, 0, -4.37114e-08, -0.5, -0.5, -4.37114e-08, 9.55343e-16, 4.2, 0, -0.6 )
+transform = Transform( -2.18557e-08, 1, -2.18557e-08, 0, -4.37114e-08, -0.5, -0.5, -4.37114e-08, 9.55343e-16, 2.739, 0, -1.743 )
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 6 )
 
 [node name="LeftThruster" type="MeshInstance" parent="Spatial"]
-transform = Transform( -2.18557e-08, 1, -2.18557e-08, 0, -4.37114e-08, -0.5, -0.5, -4.37114e-08, 9.55343e-16, 4.2, 0, 0.6 )
+transform = Transform( -2.18557e-08, 1, -2.18557e-08, 0, -4.37114e-08, -0.5, -0.5, -4.37114e-08, 9.55343e-16, 2.73884, 0, 1.74345 )
 mesh = SubResource( 5 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 6 )
