@@ -20,11 +20,11 @@ public class Planet : Spatial
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(float delta)
     {
-        Theta = Time.GetTicksMsec() * (Frequency * TimeScale * delta);
-		float Angle = Amplitude * Mathf.Sin(Theta);
+        // Theta = Time.GetTicksMsec() * (Frequency * TimeScale * delta);
+		// float Angle = Amplitude * Mathf.Sin(Theta);
 		// CurrentPosition = Translation;
 
-		RotationDegrees += new Vector3(CurrentPosition.x, 1*delta*RotY, CurrentPosition.z);
+		RotationDegrees += new Vector3(0, 1*delta*RotY, 0);
 		// Translation = CurrentPosition;
     }
 }
