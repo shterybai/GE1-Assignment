@@ -154,6 +154,7 @@ data = PoolVector3Array( 0, 3, 0, 0, 3, 0, 0, 2.9864, 0.2852, 0, 3, 0, 0.028, 2.
 script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.966421, 0.256964, 0, -0.213882, 0.804392, -0.554263, -0.142426, 0.535652, 0.832341, 0, 0, 0 )
 mesh = SubResource( 1 )
 
 [node name="CSGTorus" type="CSGTorus" parent="MeshInstance"]
