@@ -14,7 +14,7 @@ public class Spaceship : KinematicBody
 
 	// Physics Settings
     [Export]
-    public int Speed = 5;
+    public int Speed = 6;
     [Export]
     public int Gravity = 1;
     

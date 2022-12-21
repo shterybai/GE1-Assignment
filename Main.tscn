@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Spaceship.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Ground.tscn" type="PackedScene" id=2]
@@ -10,11 +10,17 @@
 [ext_resource path="res://Planet2.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Planet3.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Planet4.tscn" type="PackedScene" id=10]
+[ext_resource path="res://sky.png" type="Texture" id=11]
+
+[sub_resource type="PanoramaSky" id=2]
+panorama = ExtResource( 11 )
 
 [sub_resource type="Environment" id=1]
-background_mode = 1
+background_mode = 2
+background_sky = SubResource( 2 )
+background_energy = 0.5
 ambient_light_color = Color( 1, 1, 1, 1 )
-ambient_light_energy = 0.05
+ambient_light_energy = 16.0
 
 [node name="Spatial" type="Spatial"]
 script = ExtResource( 5 )
@@ -33,7 +39,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.1, 6 )
 environment = SubResource( 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, -4.3196, 10.9142, 7.45493 )
+transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, -4.32044, 10.9622, 7.45549 )
 light_energy = 1.5
 shadow_enabled = true
 

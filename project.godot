@@ -18,6 +18,10 @@ config/icon="res://icon.png"
 
 Music="*res://Music.tscn"
 
+[display]
+
+window/size/borderless=true
+
 [gdnative]
 
 singletons=[ "res://addons/godot-openvr/godot_openvr.gdnlib" ]
