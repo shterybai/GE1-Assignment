@@ -18,28 +18,27 @@ public class PlayerCam : Camera
     
     public override void _Input(InputEvent inputEvent) {
         if(inputEvent is InputEventMouseMotion && PlayerControl == true) {
+            // Capture mouse
             var MouseDelta = inputEvent as InputEventMouseMotion;
-            // Input.MouseMode(Input.MouseMode.Captured);
 
             Vector3 currentPitch = player.RotationDegrees;
             currentPitch.y -= MouseDelta.Relative.x * MouseSensitivity;
-            // player.SetRotationDegrees(currentPitch);
             player.RotationDegrees = currentPitch;
 
-            Vector3 currentTilt = RotationDegrees;//grab current rotation of camera.
+            // Sets current rotation of camera
+            Vector3 currentTilt = RotationDegrees;
             
-            //change the current rotation by the relative mouse coor change on the y Axis
+            // Changes the current rotation by how much the relative mouse coordinates on the Y-axis change
             currentTilt.x -= MouseDelta.Relative.y * MouseSensitivity;
 
-            //clamp the rotation to -90 and 90 so that you cant become possessed.
-            currentTilt.x = Mathf.Clamp(currentTilt.x, -90, 90);
-
-            //sets the rotation of the camera to the new value                                                                                            
-            // GetNode<Camera>("Camera").SetRotationDegrees(currentTilt);         
+            // Clamps the rotation to -90 and 90
+            currentTilt.x = Mathf.Clamp(currentTilt.x, -90, 90);        
             
-            //sets the rotation of the camera to the new value
+            // Sets the rotation of the camera to the new value
             RotationDegrees = currentTilt;
         }
+
+        // Toggles control over player/spaceship when camera is switched
         if(Input.IsActionJustPressed("toggle_spaceship_view")) {
 			PlayerControl = !PlayerControl;
 			GD.Print("SpaceshipControl = " + PlayerControl);

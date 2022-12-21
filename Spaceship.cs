@@ -3,8 +3,8 @@ using System;
 
 public class Spaceship : KinematicBody
 {
+	// Pedestal Animation
 	Vector3 CurrentPosition;
-	// Vector3 RotationDegrees;
 	[Export] public float Amplitude = 0.25f;
 	float Frequency = 1.1f;
 	float TimeScale = 0.1f;
@@ -17,47 +17,40 @@ public class Spaceship : KinematicBody
     public int Speed = 10;
     [Export]
     public int Gravity = 1;
-    
-    // Camera Settings
-    public float MinLookAngle = -90;
-    public float MaxLookAngle = 90;
-    public float MouseSensitivity = 0.075f;
 
     // Vector Settings
     private Vector3 Velocity = Vector3.Zero;
-    private Vector2 MouseDelta = Vector2.Zero;
 
 	public override void _Ready()
 	{
+		// Resets position over pedestal
 		if(SpaceshipControl == true) {
 			RotationDegrees = new Vector3(0, 0, 0);
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(float delta)
 	{
 		if(SpaceshipControl == false) {
+			// Creates constant spinning in +y direction, as well as oscillation in x and z directions
 			Theta = Time.GetTicksMsec() * (Frequency * TimeScale * delta);
 			float Angle = Amplitude * Mathf.Sin(Theta);
-			// CurrentPosition = Translation;
 			CurrentPosition.y = Angle + 3.5f;
 			CurrentPosition.y = Mathf.Lerp(Translation.y, CurrentPosition.y, TimeScale);
 
 			RotationDegrees += new Vector3(Angle*0.2f, 1*delta*RotY, Angle*0.2f);
 			Translation = CurrentPosition;
 
+			// Resets velocity
 			Velocity.y = 0;
 		}
 
 		if(SpaceshipControl == true) {
-			// RotationDegrees = new Vector3(0, 1*delta*RotY, 0);
-			// CurrentPosition.y = 0;
 
-			// We create a local variable to store the input direction.
+			// Store direction, comes to zero at rest
 			var direction = Vector3.Zero;
 
-			// We check for each move input and update the direction accordingly
+			// Directional inputs
 			if (Input.IsActionPressed("ui_left")) {
 				direction.x += Speed;
 			}
@@ -102,6 +95,7 @@ public class Spaceship : KinematicBody
 			Velocity = MoveAndSlide(Velocity, Vector3.Up);
 		}
 
+		// Toggles control over player/spaceship when camera is switched
 		if(Input.IsActionJustPressed("toggle_spaceship_view")) {
 			SpaceshipControl = !SpaceshipControl;
 			GD.Print("SpaceshipControl = " + SpaceshipControl);

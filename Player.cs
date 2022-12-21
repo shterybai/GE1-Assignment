@@ -11,27 +11,23 @@ public class Player : KinematicBody
     
     // Camera Settings
     public bool PlayerControl = true;
-    public float MinLookAngle = -90;
-    public float MaxLookAngle = 90;
-    public float MouseSensitivity = 0.075f;
 
     // Vector Settings
     private Vector3 Velocity = Vector3.Zero;
-    private Vector2 MouseDelta = Vector2.Zero;
 
     public override void _Ready() {
         Input.MouseMode = Input.MouseModeEnum.Captured;
     }
 
     public override void _PhysicsProcess(float delta) {
-        // We create a local variable to store the input direction.
+        // Creates a local variable to store the input direction.
         var direction = Vector3.Zero;
 
         // Apply gravity
         Velocity.y -= Gravity * delta;
 
         if(PlayerControl == true) {
-            // We check for each move input and update the direction accordingly
+            // Checks for each move input and update the direction accordingly
             if (Input.IsActionPressed("ui_right")) {
                 direction.x += Speed;
             }
@@ -68,6 +64,7 @@ public class Player : KinematicBody
         // Apply movement
         Velocity = MoveAndSlide(Velocity, Vector3.Up);
 
+        // Toggles control over player/spaceship when camera is switched
         if(Input.IsActionJustPressed("toggle_spaceship_view")) {
 			PlayerControl = !PlayerControl;
 		}
