@@ -26,4 +26,5 @@ shape = SubResource( 3 )
 [node name="PlayerCam" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, -0.25 )
 current = true
+far = 250.0
 script = ExtResource( 2 )

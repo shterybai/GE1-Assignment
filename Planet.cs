@@ -9,7 +9,7 @@ public class Planet : Spatial
 	float Frequency = 1.1f;
 	float TimeScale = 0.1f;
 	float Theta;
-	float RotY = 5;
+	float RotY = 10;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
