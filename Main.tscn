@@ -58,10 +58,5 @@ transform = Transform( -0.711847, -1.66166, -1.72689, 0.680017, 1.58736, -1.8077
 [node name="Planet4" parent="." instance=ExtResource( 10 )]
 transform = Transform( 4.72935, -1.58435, 3.33512, 0, 5.41956, 2.57456, -3.69232, -2.02933, 4.27184, 99.1806, 52.3381, 112.081 )
 
-[node name="ARVROrigin" type="ARVROrigin" parent="."]
-
-[node name="ARVRCamera" type="ARVRCamera" parent="ARVROrigin"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75192, 8.77429 )
-
 [editable path="Spaceship"]
 [editable path="Player"]

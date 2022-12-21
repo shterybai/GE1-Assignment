@@ -210,3 +210,8 @@ material/0 = SubResource( 13 )
 [node name="GunMuzzle" type="MeshInstance" parent="GunSwivel/GunBarrel"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425349, -2.98023e-08 )
 mesh = SubResource( 15 )
+
+[node name="ARVROrigin" type="ARVROrigin" parent="."]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.2, 4.8 )
+
+[node name="ARVRCamera" type="ARVRCamera" parent="ARVROrigin"]
