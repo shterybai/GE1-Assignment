@@ -4,7 +4,7 @@ Name: Andrew Kennan
 Student Number: C19429514
 
 ## Description of the Assignment
-This website is a depiction of 1970's sci-fi space exploration, take inspiration from various forms of media from the time period. Inspirations include the Thunderbirds, specifically Thunderbird 2, and also Star Trek's space exploration. This assignment gives the user the option to switch between controlling a humanoid player, and a spaceship.
+This game is a depiction of 1970's sci-fi space exploration, take inspiration from various forms of media from the time period. Inspirations include the Thunderbirds, specifically Thunderbird 2, and also Star Trek's space exploration. This assignment gives the user the option to switch between controlling a humanoid player, and a spaceship.
 
 ## Player Controls
 - W - Move forward
